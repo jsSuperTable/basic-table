@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>JS SuperTable basic-table</title>
+    <link rel="stylesheet" href="resources/css/jsSuperTable.css" />
+</head>
+
+<body>
+
+    <button id="loadNewBookmarks">Load Example Data</button>
+
+    <div id="exampleContainer">
+        <p>Table manipulation</p>
+        <div class="dataTables_length" id="example_length">
+            <label>Show
+                <select name="example_length" aria-controls="example" class="">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select> entries</label>
+        </div>
+        <div id="example_filter" class="dataTables_filter">
+            <label>Search:
+                <input type="search" class="" placeholder="" aria-controls="example">
+            </label>
+        </div>
+
+        <table id="example">
+            <tr>
+                <th>Name</th>
+                <th>Father Name</th>
+                <th>District</th>
+                <th>SSN</th>
+            </tr>
+
+        </table>
+    </div>
+
+    <script src="resources/js/jquery.js"></script>
+    <script src="resources/js/jquery.supertable.js"></script>
+    <script>
+        var tableData = [{
+            "name": "Halim Mia",
+            "fatherName": "Hasan Juber",
+            "district": "Kishorgonj",
+            "ssn": "88711231"
+        }, {
+            "name": "Kashem Molla",
+            "fatherName": "Jamal Bari",
+            "district": "Mymensingh",
+            "ssn": "88711234"
+        }];
+        $('#example').jsTable(tableData);
+    </script>
+</body>
+
+</html>
