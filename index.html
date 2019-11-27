@@ -4,57 +4,55 @@
 
 <head>
     <meta charset="utf-8">
-    <title>JS SuperTable basic-table</title>
-    <link rel="stylesheet" href="resources/css/jsSuperTable.css" />
+    <title>JS Table</title>
+    <link rel="stylesheet" href="resources/css/jquery.jstable.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 
-    <button id="loadNewBookmarks">Load Example Data</button>
-
-    <div id="exampleContainer">
+        <button id="loadDefault">Load Default</button>
+        <button id="loadData">Load 100000 Data</button>
+    
+    <div id="exampleContainer" style="width:50%">
         <p>Table manipulation</p>
-        <div class="dataTables_length" id="example_length">
-            <label>Show
-                <select name="example_length" aria-controls="example" class="">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select> entries</label>
-        </div>
-        <div id="example_filter" class="dataTables_filter">
-            <label>Search:
-                <input type="search" class="" placeholder="" aria-controls="example">
-            </label>
-        </div>
-
-        <table id="example">
-            <tr>
-                <th>Name</th>
-                <th>Father Name</th>
-                <th>District</th>
-                <th>SSN</th>
-            </tr>
-
+        <table class="table table-hover" id="example" >
         </table>
     </div>
 
+    <div id="clearFilterButton" class="wuid ecWcf2Xp ecWcf2Xp_0_portfolioproductlinegate2 searchWidget activeFilters compactMode">
+            <div class="widgetTitle">Filters</div>
+            <div class="activeFiltersContainer">
+            <a class="activeFilter selectedFilter" data-facet="f/rel_product_rel_roadmap_parent_portfolio/optiflo product portfolio" onclick="ActiveFilters.utils.deleteRefine('f\/rel_product_rel_roadmap_parent_portfolio\/optiflo product portfolio')" title="Remove this filter">
+            <span class="facetName">
+            rel_product_rel_roadmap_parent_portfolio&nbsp;
+            </span>
+            <span class="categoryName">
+            OptiFlo Product Portfolio&nbsp;
+            </span>
+            <span class="fonticon fonticon-cancel">
+            </span>
+            </a>
+            </div>
+            <a href="portfolioproductlinegate2?products.page=1" class="fonticon fonticon-trash reset-btn" title="Remove all filters">a</a>
+            
+            <div class="linkContainer ">
+            
+            
+            <a class="customLink" href="portfolioproductlinegate2">
+            
+            
+            </a>
+            
+            </div>
+            </div>
+
     <script src="resources/js/jquery.js"></script>
-    <script src="resources/js/jquery.supertable.js"></script>
+    <script src="resources/js/faker.js"></script>
+    <script src="resources/js/jquery.jstable.js"></script>
     <script>
-        var tableData = [{
-            "name": "Halim Mia",
-            "fatherName": "Hasan Juber",
-            "district": "Kishorgonj",
-            "ssn": "88711231"
-        }, {
-            "name": "Kashem Molla",
-            "fatherName": "Jamal Bari",
-            "district": "Mymensingh",
-            "ssn": "88711234"
-        }];
-        $('#example').jsTable(tableData);
     </script>
 </body>
 
