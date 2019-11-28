@@ -12,7 +12,7 @@
     $.table2 = function(element, options) {
 
         /*
-            #Defaults
+            #Default data for plugin
         */
        var defaults =  {
 		thead: ["Warning!"],
@@ -169,7 +169,15 @@
         */
         plugin.init = function() {
             plugin.settings = $.extend({}, defaults, options);
-            var columns = plugin.settings.thead;
+            plugin.generateTable();
+        };
+
+        
+        /*
+        #Generates HTML for table (nav)
+        */
+        plugin.generateTable = function() {
+			var columns = plugin.settings.thead;
             var thead = plugin.settings.thead;
             var tbody = plugin.settings.tbody;
             var table = $element[0];
@@ -195,18 +203,7 @@
             } else {
                 alert('Error: Unable to draw!');
             }
-
-           
-
-        };
-
-        
-        /*
-        #Generates HTML for table (nav)
-        */
-        var generateTable = function() {
             return 1;
-
         };
 
         plugin.init();
@@ -226,7 +223,7 @@
 
 }( jQuery ));
 
-
+/*
 var records = [];
 	for (var i=0;i<50;i++) {
 		var firstName = faker.name.firstName();
@@ -254,3 +251,4 @@ var records = [];
 	};
 	
 	$('#example').table2(tableData);
+*/

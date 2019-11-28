@@ -25,6 +25,36 @@
     <script src="resources/js/jquery.js"></script>
     <script src="resources/js/faker.js"></script>
     <script src="resources/js/jquery.table2.js"></script>
+    
+    <script>
+
+    var records = [];
+	for (var i=0;i<50;i++) {
+		var firstName = faker.name.firstName();
+		var lastName = faker.name.lastName();
+		var name = firstName + " " + lastName;
+		var fatherName = faker.name.firstName();
+		fatherName += " " +faker.name.lastName();
+
+		var data = {
+			"name" : name,
+			"fatherName" : fatherName,
+			"district" : faker.address.city(),
+			"ssn" : faker.phone.phoneNumber()
+		};
+		records.push(data);
+	}
+	
+	$('#example').table2({
+		thead: ["Name", "Father Name", "District", "SSN"],
+		searchable: [true, false, false, false],
+		pagination : true,
+		actionButtons : false,
+		perPage : 10,
+		globalSearch : false,
+		tbody: records
+	});
+    </script>
 
 </body>
 
