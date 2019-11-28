@@ -1,0 +1,27 @@
+
+<div id="bookmarkFolderSelection">
+</div>
+
+<script src="resources/js/jquery.js"></script>
+<script src="resources/js/faker.js"></script>
+<script src="resources/js/jquery.selectjs.js"></script>
+
+<script>
+var bookmarkFolders = ["Basics","Basics","Sales","Build","Build","Service","Sales","Engineering","Delivery","Basics","Engineering","Build","Delivery","Delivery","Engineering","Incoming Correspondence","Outgoing Correspondence","Engineering","Build","Build","Sales","Build","Connectors","Basics","Sales","Valkiakoski","Service","Engineering Report","Build","Delivery","Engineering","Incoming Correspondence","Basics","Basics","Delivery","Fld-Test-01","Service","Build","Delivery","Engineering","Delivery","Sales","Service","Test Plan","Basics","Engineering","DAL","DAL","Delivery","Engineering","Service","Basics","Sales","Basics","Service","Build","Engineering","Engineering","Service","Build","Delivery","Sales","Basics","Build","Sales","Ulvila","Basics","Service","Sales","Service","Sales","Service","Basics","Proposal Volumes","RFP Documents","Engineering","Sales","Sales","Engineering","Engineering","Sales","Delivery","Basics","Service","Basics","Engineering","Engineering Report","Service","Contract Documentation","Delivery","Outgoing Correspondence","Contract Documentation","Delivery","Sales","Correspondence","Proposal Estimates","Basics","Service","Delivery","Service","Service","Delivery","Build","Test Plan","Delivery","Build","Sales","Build","Build","Certifications","Engineering"];
+
+    $('#bookmarkFolderSelection').selectjs({
+        title: "Bookmark Folder Selection",
+        firstOption: "Select Bookmark Folder",
+        elementName: "bookmarkFolder",
+        elementId: "bookmarkFolder",
+        valueGeneration: false,
+        data: bookmarkFolders,
+        onchangeEvent: function(){
+            console.log(this.value);
+        }
+    });
+
+</script>
+
+
+ 
