@@ -17,11 +17,12 @@
        var defaults =  {
 		thead: ["Warning!"],
 		searchable: [true, false, false, false],
+		allowedKeys: ["warningText.message"],
+        tbody : [{"warningText":{"message":"No Data Found"}}],
 		pagination : true,
 		actionButtons : false,
 		perPage : 5,
 		globalSearch : false,
-        tbody : [{"warning":"No Data Found"}],
         onPageClick: function() {} 
 	};
 
@@ -59,7 +60,16 @@
 				for (var j = 0; j < keys.length; j++) {
 					var cell = row.insertCell(j);
 					var key = keys[j];
-					cell.innerHTML = tbody[i][key];
+					if (key.indexOf(".")> -1) {
+						var splitted = key.split(".");
+						var parentKey = splitted[0];
+						var childKey = splitted[1];
+						cell.innerHTML = tbody[i][parentKey][childKey];
+
+					} else {
+						cell.innerHTML = tbody[i][key];
+					}
+					
 				}
 
 			}
@@ -179,21 +189,22 @@
         plugin.generateTable = function() {
 			var columns = plugin.settings.thead;
             var thead = plugin.settings.thead;
-            var tbody = plugin.settings.tbody;
+			var tbody = plugin.settings.tbody;
+			var allowedKeys = plugin.settings.allowedKeys;
+			
             var table = $element[0];
-            var keys = Object.keys(tbody[0]);
             var searchableRow = true;
             var pagination = plugin.settings.pagination;
 			var perPage = plugin.settings.perPage;
 			var searchable = plugin.settings.searchable;
             
-            if (columns.length == keys.length) {
+            if (columns.length == allowedKeys.length) {
                 drawTableHeader(table,thead);
                 if (searchableRow) {
                     drawSearchableRow(table,thead,searchable);
                     bindSearchableEvents(table,thead,searchable);
                 }
-                drawTableBody(table,tbody,keys);
+                drawTableBody(table,tbody,allowedKeys);
                 
                 if (pagination) {
                     

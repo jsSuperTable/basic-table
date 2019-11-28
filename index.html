@@ -16,7 +16,7 @@
         <button id="loadDefault">Load Default</button>
         <button id="loadData">Load 100000 Data</button>
     
-    <div id="exampleContainer" style="width:50%">
+    <div id="exampleContainer" style="width:80%">
         <p>Table manipulation</p>
         <table class="table table-hover" id="example" >
         </table>
@@ -44,15 +44,306 @@
 		};
 		records.push(data);
 	}
-	
+	records = [{
+    "productId": "65432.9774.58785.22824",
+    "productName": "HP-0000036",
+    "product": "",
+    "productMarketingName": "TOTO HEADBOX",
+    "portfolioDesc": "TOTO PORTFOLIO",
+    "productLineDesc": "",
+    "lastCompletedGate": {
+        "taskName": "G1",
+        "taskDesc": "",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G2",
+        "taskDesc": "",
+        "estStartDate": "3/19/2019 8:00:00 AM"
+    }
+}, {
+    "productId": "65432.9774.26988.8385",
+    "productName": "HP-0000039",
+    "product": "OptiFlo Fourdrinier two layers",
+    "productMarketingName": "OptiFlo Fourdrinier two layers",
+    "portfolioDesc": "All OptiFlo Products",
+    "productLineDesc": "OptiFlo Fourdrinier",
+    "lastCompletedGate": {
+        "taskName": "G3",
+        "taskDesc": "Gate G3",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G4",
+        "taskDesc": "Gate G4",
+        "estStartDate": "5/27/2024 5:00:00 PM"
+    }
+}, {
+    "productId": "65432.9774.515.63469",
+    "productName": "HP-0001235",
+    "product": "T-OptiFlo Gap two layers",
+    "productMarketingName": "T-OptiFlo Gap two layers",
+    "portfolioDesc": "OptiFlo Product Portfolio",
+    "productLineDesc": "OptiFlo Gaps",
+    "lastCompletedGate": {
+        "taskName": "G3",
+        "taskDesc": "Launch",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G4",
+        "taskDesc": "Product ready",
+        "estStartDate": "9/20/2019 8:00:00 AM"
+    }
+}, {
+    "productId": "65432.9774.17818.50138",
+    "productName": "HP-0000047",
+    "product": "OptiFlo Gap one layer with aqua technology",
+    "productMarketingName": "OptiFlo Gap one layer with aqua technology",
+    "portfolioDesc": "All OptiFlo Products",
+    "productLineDesc": "OptiFlo Gap",
+    "lastCompletedGate": {
+        "taskName": "G2",
+        "taskDesc": "Gate G2",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G3",
+        "taskDesc": "Gate G3",
+        "estStartDate": "4/3/2023 5:00:00 PM"
+    }
+}, {
+    "productId": "65432.9774.55105.31928",
+    "productName": "HP-0000040",
+    "product": "OptiFlo Fourdrinier one layer with integrated attenuator",
+    "productMarketingName": "OptiFlo Fourdrinier one layer with integrated attenuator",
+    "portfolioDesc": "All OptiFlo Products",
+    "productLineDesc": "OptiFlo Fourdrinier",
+    "lastCompletedGate": {
+        "taskName": "G3",
+        "taskDesc": "Gate G3",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G4",
+        "taskDesc": "Gate G4",
+        "estStartDate": "5/27/2024 5:00:00 PM"
+    }
+}, {
+    "productId": "65432.9774.12819.26668",
+    "productName": "HP-0001236",
+    "product": "T-OptiFlo Gap one layer with aqua technology1",
+    "productMarketingName": "T-OptiFlo Gap one layer with aqua technology1",
+    "portfolioDesc": "OptiFlo Product Portfolio All OptiFlo Products",
+    "productLineDesc": "OptiFlo Gaps",
+    "lastCompletedGate": {
+        "taskName": "G2",
+        "taskDesc": "Prototype readiness",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G3",
+        "taskDesc": "Launch",
+        "estStartDate": "9/16/2022 8:00:00 AM"
+    }
+}, {
+    "productId": "65432.9774.37629.32112",
+    "productName": "HP-0001237",
+    "product": "T-OptiFlo Gap two layers with aqua technology1",
+    "productMarketingName": "T-OptiFlo Gap two layers with aqua technology1",
+    "portfolioDesc": "",
+    "productLineDesc": "",
+    "lastCompletedGate": {
+        "taskName": "G4",
+        "taskDesc": "Product ready",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G5",
+        "taskDesc": "Descenting product",
+        "estStartDate": "3/2/2020 5:00:00 PM"
+    }
+}, {
+    "productId": "65432.9774.35272.63555",
+    "productName": "HP-0000013",
+    "product": "OptiFlo one layer",
+    "productMarketingName": "OptiFlo Fourdrinier one layer",
+    "portfolioDesc": "",
+    "productLineDesc": "",
+    "lastCompletedGate": {
+        "taskName": "G4",
+        "taskDesc": "Gate G4",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G5",
+        "taskDesc": "Gate G5",
+        "estStartDate": "3/27/2028 5:00:00 PM"
+    }
+}, {
+    "productId": "65432.9774.12586.3023",
+    "productName": "HP-0000048",
+    "product": "OptiFlo Gap two layers with aqua technology",
+    "productMarketingName": "OptiFlo Gap two layers with aqua technology",
+    "portfolioDesc": "All OptiFlo Products",
+    "productLineDesc": "OptiFlo Gap",
+    "lastCompletedGate": {
+        "taskName": "G2",
+        "taskDesc": "Gate G2",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G3",
+        "taskDesc": "Gate G3",
+        "estStartDate": "4/3/2023 5:00:00 PM"
+    }
+}, {
+    "productId": "65432.9774.53238.45813",
+    "productName": "HP-0000044",
+    "product": "OptiFlo Fourdrinier three layers",
+    "productMarketingName": "OptiFlo Fourdrinier three layers",
+    "portfolioDesc": "All OptiFlo Products",
+    "productLineDesc": "OptiFlo Fourdrinier",
+    "lastCompletedGate": {
+        "taskName": "G2",
+        "taskDesc": "Gate G2",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G3",
+        "taskDesc": "Gate G3",
+        "estStartDate": "4/3/2023 5:00:00 PM"
+    }
+}, {
+    "productId": "65432.9774.8423.37558",
+    "productName": "HP-0000041",
+    "product": "OptiFlo Fourdrinier one layer with aqua technology",
+    "productMarketingName": "OptiFlo Fourdrinier one layer with aqua technology",
+    "portfolioDesc": "All OptiFlo Products",
+    "productLineDesc": "OptiFlo Fourdrinier",
+    "lastCompletedGate": {
+        "taskName": "G2",
+        "taskDesc": "Gate G2",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G3",
+        "taskDesc": "Gate G3",
+        "estStartDate": "4/3/2023 5:00:00 PM"
+    }
+}, {
+    "productId": "65432.9774.58320.64506",
+    "productName": "HP-0000046",
+    "product": "OptiFlo Gap two layers",
+    "productMarketingName": "OptiFlo Gap two layers",
+    "portfolioDesc": "All OptiFlo Products",
+    "productLineDesc": "OptiFlo Gap",
+    "lastCompletedGate": {
+        "taskName": "G3",
+        "taskDesc": "Gate G3",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G4",
+        "taskDesc": "Gate G4",
+        "estStartDate": "5/27/2024 5:00:00 PM"
+    }
+}, {
+    "productId": "65432.9774.15624.3895",
+    "productName": "HP-0000042",
+    "product": "OptiFlo Fourdrinier two layers with aqua technology",
+    "productMarketingName": "OptiFlo Fourdrinier two layers with aqua technology",
+    "portfolioDesc": "All OptiFlo Products",
+    "productLineDesc": "OptiFlo Fourdrinier",
+    "lastCompletedGate": {
+        "taskName": "G2",
+        "taskDesc": "Gate G2",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G3",
+        "taskDesc": "Gate G3",
+        "estStartDate": "4/3/2023 5:00:00 PM"
+    }
+}, {
+    "productId": "65432.9774.61552.11058",
+    "productName": "HP-0001234",
+    "product": "T-OptiFlo Gap one layer",
+    "productMarketingName": "T-OptiFlo Gap one layer",
+    "portfolioDesc": "",
+    "productLineDesc": "",
+    "lastCompletedGate": {
+        "taskName": "G3",
+        "taskDesc": "G3-Launch",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G4",
+        "taskDesc": "G4-Product ready",
+        "estStartDate": "9/9/2019 8:00:00 AM"
+    }
+}, {
+    "productId": "65432.9774.36799.8499",
+    "productName": "HP-0000043",
+    "product": "OptiFlo Secondary Headbox",
+    "productMarketingName": "OptiFlo Secondary Headbox",
+    "portfolioDesc": "All OptiFlo Products",
+    "productLineDesc": "OptiFlo Fourdrinier",
+    "lastCompletedGate": {
+        "taskName": "G3",
+        "taskDesc": "Gate G3",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G4",
+        "taskDesc": "Gate G4",
+        "estStartDate": "5/27/2024 5:00:00 PM"
+    }
+}, {
+    "productId": "65432.9774.49511.53374",
+    "productName": "HP-0000045",
+    "product": "OptiFlo Gap one layer",
+    "productMarketingName": "OptiFlo Gap one layer",
+    "portfolioDesc": "All OptiFlo Products",
+    "productLineDesc": "OptiFlo Gap",
+    "lastCompletedGate": {
+        "taskName": "G3",
+        "taskDesc": "Gate G3",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G1",
+        "taskDesc": "Gate G1",
+        "estStartDate": "10/22/2019 8:00:00 AM"
+    }
+}, {
+    "productId": "65432.9774.56970.30357",
+    "productName": "HP-0000035",
+    "product": "TITI HEADBOX",
+    "productMarketingName": "TITI HEADBOX",
+    "portfolioDesc": "TOTO PORTFOLIO",
+    "productLineDesc": "",
+    "lastCompletedGate": {
+        "taskName": "G2",
+        "taskDesc": "",
+        "onTime": true
+    },
+    "nextGate": {
+        "taskName": "G3",
+        "taskDesc": "",
+        "estStartDate": "3/19/2019 8:00:00 AM"
+    }
+}];
+
 	$('#example').table2({
-		thead: ["Name", "Father Name", "District", "SSN"],
+		thead: ["Product Name", "Description", "Last Completed Gate", "Next Gate","Start Date"],
+		tbody: records,
+		allowedKeys: ["productName", "productMarketingName", "lastCompletedGate.taskName", "nextGate.taskName", "nextGate.estStartDate"],
 		searchable: [true, false, false, false],
 		pagination : true,
 		actionButtons : false,
 		perPage : 10,
-		globalSearch : false,
-		tbody: records
+		globalSearch : false
 	});
     </script>
 
