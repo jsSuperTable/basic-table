@@ -1,35 +1,39 @@
-jQuery.fn.jsTable = function(tableData) {
-    // Table generation from json input
-    return this.each(function() {
-        var tbody = tableData.tbody;
-        var thead = tableData.thead;
-		var searchable = tableData.searchable;
-		var pagination = tableData.pagination;
-		var perPage = tableData.perPage;
-		perPage = (perPage!=undefined && perPage!=null && perPage>0) ? perPage : tbody.length;
+/*
+    jquery.table2
+    ^^^^^^^^^^^^^^^
 
-        if (tbody.length == 0) {
-            return 0;
-        }
-		var columns = tableData.thead;
-        var keys = Object.keys(tbody[0]);
-		
-		var table = this;
-		var trs = table.getElementsByTagName('tr');
-		table.innerHTML = '';
-		var lastRowIndex = 0;
-		
-		
-		
-		var searchableRow = false;
-		for (var j = 0; j < keys.length; j++) { 
-			if (searchable[j]) {
-				searchableRow = true;
-			}
-		}
-		
+    Description: Draw Table
+    Version: Version 0.0.1
+    Author: Arifur Rahman (https://github.com/arifcseru)
+*/
 
-		function drawTableHeader(table){
+(function( $ ) {
+
+    $.table2 = function(element, options) {
+
+        /*
+            #Defaults
+        */
+       var defaults =  {
+		thead: ["Warning!"],
+		searchable: [true, false, false, false],
+		pagination : true,
+		actionButtons : false,
+		perPage : 5,
+		globalSearch : false,
+        tbody : [{"warning":"No Data Found"}],
+        onPageClick: function() {} 
+	};
+
+        var plugin = this;
+
+        plugin.settings = {};
+
+        var $element = $(element);
+
+        var lastRowIndex = 0;
+
+        var drawTableHeader = function (table,thead){
 			var row = table.insertRow(lastRowIndex++);
 			for (var j = 0; j < thead.length; j++) {
 				var cell = row.insertCell(j);
@@ -37,7 +41,7 @@ jQuery.fn.jsTable = function(tableData) {
 				cell.innerHTML = thData;
 			}
 		}
-		function drawSearchableRow(table) {
+		var drawSearchableRow = function (table,thead,searchable) {
 			var row = table.insertRow(lastRowIndex++);
 			for (var j = 0; j < thead.length; j++) {
 				var cell = row.insertCell(j);
@@ -48,7 +52,7 @@ jQuery.fn.jsTable = function(tableData) {
 				}
 			}
 		}
-		function drawTableBody(table){
+		var drawTableBody = function (table,tbody,keys){
 			for (var i = 0; i < tbody.length; i++) {
 				var row = table.insertRow(lastRowIndex++);
 				
@@ -60,7 +64,7 @@ jQuery.fn.jsTable = function(tableData) {
 
 			}
 		}
-        function drawPaginatedTable(table,visiblePage,checkAlreadyVisible) {
+        var drawPaginatedTable = function (table,visiblePage,checkAlreadyVisible,perPage) {
 			var trs = table.getElementsByTagName("tr");
 			for (var i = 2; i < trs.length; i++) {
 				var currentPage = i / perPage;
@@ -79,13 +83,13 @@ jQuery.fn.jsTable = function(tableData) {
 			}
 		}
 
-		function drawPaginationLinks(table,activePage){
+		var drawPaginationLinks = function (table,activePage){
 			
 			$('#'+table.id+'-pagination').remove();
 
 			var preparedList = "<nav id='"+table.id+"-pagination' aria-label=\"Page navigation example\">"+
 			"<ul class=\"pagination\">";
-			var totalPages = tbody.length/perPage;
+			var totalPages = plugin.settings.tbody.length/plugin.settings.perPage;
 			
 			for (var i=0;i<totalPages;i++) {
 				if ((activePage-1) == i) {
@@ -105,7 +109,7 @@ jQuery.fn.jsTable = function(tableData) {
 				var currentPage = 0;
 				var trs = table.getElementsByTagName("tr");
 				for (var i = 2; i < trs.length; i++) {
-					currentPage = i/perPage;
+					currentPage = i/plugin.settings.perPage;
 
 					if (pageNo>=currentPage && (pageNo<=currentPage+1)) {
 						trs[i].style = "";	
@@ -117,7 +121,7 @@ jQuery.fn.jsTable = function(tableData) {
 				drawPaginationLinks(table,pageNo);	
 			}
 		}
-		function bindSearchableEvents(table){
+		var bindSearchableEvents = function (table,thead,searchable){
 			for (var j = 0; j < thead.length; j++) {
 				if (searchable[j]) {
 					var targetTd = j;
@@ -132,7 +136,7 @@ jQuery.fn.jsTable = function(tableData) {
 							for (var i = 2; i < tr.length; i++) {
 								td = tr[i].getElementsByTagName("td")[targetTd];
 								if (td) {
-									trs[i].style = "";	
+									tr[i].style = "";	
 									txtValue = td.textContent || td.innerText;
 									if (txtValue.toUpperCase().indexOf(filter) > -1) {
 										tr[i].removeAttribute("hidden");
@@ -146,8 +150,8 @@ jQuery.fn.jsTable = function(tableData) {
 							}
 							$('#'+table.id+'-pagination').hide();
 						} else {
-							if (pagination) {
-								drawPaginatedTable(table,0,false);
+							if (plugin.settings.pagination) {
+								drawPaginatedTable(table,0,false,plugin.settings.perPage);
 								drawPaginationLinks(table,1);
 								$('#'+table.id+'-pagination').show();
 							}
@@ -158,86 +162,79 @@ jQuery.fn.jsTable = function(tableData) {
 					});
 				}
 			}
-		}
-		// table event
-        if (columns.length == keys.length) {
-			drawTableHeader(table);
-			if (searchableRow) {
-				drawSearchableRow(table);
-				bindSearchableEvents(table);
-			}
-			drawTableBody(table);
-			
-			if (pagination) {
-				
-				drawPaginatedTable(table,0,false);
-				drawPaginationLinks(table,1);
-			}
-        } else {
-            alert('Error: Unable to draw!');
         }
-		
-		
-        // var table = this;
-        // table.style = "text-align:center;";
-        // table.className = "table table-hover";
-        // table.width = "100%";
-        // table.border = 1;
+        
+        /*
+            #Initliazes plugin
+        */
+        plugin.init = function() {
+            plugin.settings = $.extend({}, defaults, options);
+            var columns = plugin.settings.thead;
+            var thead = plugin.settings.thead;
+            var tbody = plugin.settings.tbody;
+            var table = $element[0];
+            var keys = Object.keys(tbody[0]);
+            var searchableRow = true;
+            var pagination = plugin.settings.pagination;
+			var perPage = plugin.settings.perPage;
+			var searchable = plugin.settings.searchable;
+            
+            if (columns.length == keys.length) {
+                drawTableHeader(table,thead);
+                if (searchableRow) {
+                    drawSearchableRow(table,thead,searchable);
+                    bindSearchableEvents(table,thead,searchable);
+                }
+                drawTableBody(table,tbody,keys);
+                
+                if (pagination) {
+                    
+                    drawPaginatedTable(table,0,false,perPage);
+                    drawPaginationLinks(table,1);
+                }
+            } else {
+                alert('Error: Unable to draw!');
+            }
 
-       
-        // for (var i = 0; i < trs.length; i++) {
-        //     var tds = trs[i].getElementsByTagName('td');
-        //     for (var j = 0; j < tds.length; j++) {
-        //         var td = tds[j];
-        //         td.style = "text-align:left;";
-        //     }
-		// }
-		
-        return 1;
-    });
-};
+           
+
+        };
+
+        
+        /*
+        #Generates HTML for table (nav)
+        */
+        var generateTable = function() {
+            return 1;
+
+        };
+
+        plugin.init();
+
+    };
+
+    $.fn.table2 = function(options) {
+
+        return this.each(function() {
+            if (undefined === $(this).data('table2')) {
+                var plugin = new $.table2(this, options);
+                    $(this).data('table2', plugin);
+            }
+        });
+
+    };
+
+}( jQuery ));
+
 
 var records = [];
-for (var i=0;i<50;i++) {
-	var firstName = faker.name.firstName();
-	var lastName = faker.name.lastName();
-	var name = firstName + " " + lastName;
-	var fatherName = faker.name.firstName();
-	 fatherName += " " +faker.name.lastName();
-
-	var data = {
-		"name" : name,
-		"fatherName" : fatherName,
-		"district" : faker.address.city(),
-		"ssn" : faker.phone.phoneNumber()
-	};
-	records.push(data);
-}
-$('#loadDefault').click(function(){
-	loadInitialData();
-});
-function loadInitialData(){
-	var tableData = {
-		"thead": ["Name", "Father Name", "District", "SSN"],
-		"searchable": [true, false, false, false],
-		"pagination" : true,
-		"actionButtons" : false,
-		"perPage" : 10,
-		"globalSearch" : false,
-		"tbody": records
-	};
-	$('#example').jsTable(tableData);
-}
-loadInitialData();
-
-$('#loadData').click(function(){
-	var records = [];
-	for (var i=0;i<100000;i++) {
+	for (var i=0;i<50;i++) {
 		var firstName = faker.name.firstName();
 		var lastName = faker.name.lastName();
 		var name = firstName + " " + lastName;
 		var fatherName = faker.name.firstName();
-		 fatherName += " " +faker.name.lastName();
+		fatherName += " " +faker.name.lastName();
+
 		var data = {
 			"name" : name,
 			"fatherName" : fatherName,
@@ -247,14 +244,13 @@ $('#loadData').click(function(){
 		records.push(data);
 	}
 	var tableData = {
-		"thead": ["Name", "Father Name", "District", "SSN"],
-		"searchable": [true, false, false, false],
-		"pagination" : true,
-		"actionButtons" : false,
-		"perPage" : 10,
-		"globalSearch" : false,
-		"tbody": records
+		thead: ["Name", "Father Name", "District", "SSN"],
+		searchable: [true, false, false, false],
+		pagination : true,
+		actionButtons : false,
+		perPage : 10,
+		globalSearch : false,
+		tbody: records
 	};
-	$('#example').jsTable(tableData);
-});
-
+	
+	$('#example').table2(tableData);
