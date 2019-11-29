@@ -4,7 +4,7 @@
 
     Description: Draw Table
     Version: Version 0.0.1
-    Author: Arifur Rahman (https://github.com/arifcseru)
+    Author: BJIT Limited
 */
 
 (function( $ ) {
@@ -17,6 +17,8 @@
        var defaults =  {
 		thead: ["Warning!"],
 		searchable: [true, false, false, false],
+		sortable: [true, false, false, false],
+        alignments: ["left", "left", "left", "left"],
 		allowedKeys: ["warningText.message"],
         tbody : [{"warningText":{"message":"No Data Found"}}],
 		pagination : true,
@@ -35,55 +37,72 @@
         var lastRowIndex = 0;
 
         var drawTableHeader = function (table,thead){
-			var row = table.insertRow(lastRowIndex++);
+			var header = table.createTHead();
+			var row = header.insertRow(lastRowIndex++);  
+
 			for (var j = 0; j < thead.length; j++) {
 				var cell = row.insertCell(j);
 				var thData = thead[j];
-				cell.innerHTML = thData;
+				cell.outerHTML = "<th>"+thData+"</th>";
 			}
 		}
 		var drawSearchableRow = function (table,thead,searchable) {
-			var row = table.insertRow(lastRowIndex++);
-			for (var j = 0; j < thead.length; j++) {
-				var cell = row.insertCell(j);
-				if (searchable[j]) {
-					cell.innerHTML = '<input type="text" id="field'+j+'" placeholder="Type Here"/>';
-				} else {
-					cell.innerHTML = '';
+			if (searchable.indexOf(true)>-1) {
+				var row = table.insertRow(lastRowIndex++);
+				for (var j = 0; j < thead.length; j++) {
+					var cell = row.insertCell(j);
+					if (searchable[j]) {
+						cell.innerHTML = '<input type="text" id="field'+j+'" placeholder="Type Here"/>';
+					} else {
+						cell.innerHTML = '';
+					}
 				}
-			}
+			}			
 		}
 		var drawTableBody = function (table,tbody,keys){
+			var body = document.createElement('tbody');
+
 			for (var i = 0; i < tbody.length; i++) {
-				var row = table.insertRow(lastRowIndex++);
-				
+				//var row = table.insertRow(lastRowIndex++);
+				var tr = document.createElement('tr');
 				for (var j = 0; j < keys.length; j++) {
-					var cell = row.insertCell(j);
+					//var cell = row.insertCell(j);
 					var key = keys[j];
+					var td = document.createElement('td');
 					if (key.indexOf(".")> -1) {
 						var splitted = key.split(".");
 						var parentKey = splitted[0];
 						var childKey = splitted[1];
-						cell.innerHTML = tbody[i][parentKey][childKey];
+						//cell.innerHTML = tbody[i][parentKey][childKey];
+
+						td.innerHTML = tbody[i][parentKey][childKey];
 
 					} else {
-						cell.innerHTML = tbody[i][key];
+						//cell.innerHTML = tbody[i][key];
+						td.innerHTML = tbody[i][key];
 					}
+					var textAlign = plugin.settings.alignments[j];
+					td.style.textAlign = textAlign;
+					tr.appendChild(td);
 					
 				}
+				body.appendChild(tr);
 
 			}
+			table.appendChild(body);
 		}
         var drawPaginatedTable = function (table,visiblePage,checkAlreadyVisible,perPage) {
 			var trs = table.getElementsByTagName("tr");
-			for (var i = 2; i < trs.length; i++) {
+			var startIndex = plugin.settings.searchable.indexOf(true)>-1 ? 1 : 2;
+
+			for (var i = startIndex; i < trs.length; i++) {
 				var currentPage = i / perPage;
 				//console.log(currentPage >= visiblePage && currentPage <= (visiblePage+1));
 				var visibilityCondition = false
 				if (checkAlreadyVisible) {
-					visibilityCondition = currentPage >= visiblePage && currentPage <= (visiblePage+1) && trs[i].style=="";
+					visibilityCondition = currentPage > visiblePage && currentPage < (visiblePage+1) && trs[i].style=="";
 				} else {
-					visibilityCondition = currentPage >= visiblePage && currentPage <= (visiblePage+1);
+					visibilityCondition = currentPage > visiblePage && currentPage < (visiblePage+1);
 				}
 				if (visibilityCondition) {
 					trs[i].style = "";	
@@ -103,7 +122,7 @@
 			
 			for (var i=0;i<totalPages;i++) {
 				if ((activePage-1) == i) {
-					preparedList = preparedList + "<li class=\"active page-item\"> <a href=\"javascript:void(0);\" class=\"page-link\">"+(i+1)+"</a></li>";
+					preparedList = preparedList + "<li class=\"active page-item\"> <a href=\"javascript:void(0);\" class=\"current page-link\">"+(i+1)+"</a></li>";
 				} else {
 					preparedList = preparedList + "<li class=\"page-item\"> <a href=\"javascript:void(0);\" class=\"page-link\">"+(i+1)+"</a></li>";
 				}
@@ -118,10 +137,12 @@
 			function loadPage(pageNo) {
 				var currentPage = 0;
 				var trs = table.getElementsByTagName("tr");
-				for (var i = 2; i < trs.length; i++) {
+				var startIndex = plugin.settings.searchable.indexOf(true)>-1 ? 1 : 2;
+				for (var i = startIndex; i < trs.length; i++) {
 					currentPage = i/plugin.settings.perPage;
+					currentPage = Math.ceil(currentPage);
 
-					if (pageNo>=currentPage && (pageNo<=currentPage+1)) {
+					if (pageNo>=currentPage && (pageNo<currentPage+1)) {
 						trs[i].style = "";	
 					} else {
 						trs[i].style = "display:none;";	

@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>JS Select</title>
+    <link rel="stylesheet" href="resources/css/jquery.jstable.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
 
 <div id="bookmarkFolderSelection">
 </div>
@@ -7,11 +21,11 @@
 <script src="resources/js/jquery.selectjs.js"></script>
 
 <script>
-var bookmarkFolders = ["Basics","Basics","Sales","Build","Build","Service","Sales","Engineering","Delivery","Basics","Engineering","Build","Delivery","Delivery","Engineering","Incoming Correspondence","Outgoing Correspondence","Engineering","Build","Build","Sales","Build","Connectors","Basics","Sales","Valkiakoski","Service","Engineering Report","Build","Delivery","Engineering","Incoming Correspondence","Basics","Basics","Delivery","Fld-Test-01","Service","Build","Delivery","Engineering","Delivery","Sales","Service","Test Plan","Basics","Engineering","DAL","DAL","Delivery","Engineering","Service","Basics","Sales","Basics","Service","Build","Engineering","Engineering","Service","Build","Delivery","Sales","Basics","Build","Sales","Ulvila","Basics","Service","Sales","Service","Sales","Service","Basics","Proposal Volumes","RFP Documents","Engineering","Sales","Sales","Engineering","Engineering","Sales","Delivery","Basics","Service","Basics","Engineering","Engineering Report","Service","Contract Documentation","Delivery","Outgoing Correspondence","Contract Documentation","Delivery","Sales","Correspondence","Proposal Estimates","Basics","Service","Delivery","Service","Service","Delivery","Build","Test Plan","Delivery","Build","Sales","Build","Build","Certifications","Engineering"];
+var bookmarkFolders = ["Service","Build","Delivery","Engineering","Sales","Test Plan","Basics","DAL","Incoming Correspondence","Outgoing Correspondence","Connectors","Valkiakoski","Engineering Report","Fld-Test-01","Certifications","Ulvila","Proposal Volumes","RFP Documents","Contract Documentation","Correspondence","Proposal Estimates"];
 
     $('#bookmarkFolderSelection').selectjs({
-        title: "Bookmark Folder Selection",
-        firstOption: "Select Bookmark Folder",
+        title: "Bookmark Folder",
+        firstOption: "-Select-",
         elementName: "bookmarkFolder",
         elementId: "bookmarkFolder",
         valueGeneration: false,
@@ -22,6 +36,9 @@ var bookmarkFolders = ["Basics","Basics","Sales","Build","Build","Service","Sale
     });
 
 </script>
+</body>
+</html>
+
 
 
  

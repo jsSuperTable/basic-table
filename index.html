@@ -16,7 +16,7 @@
         <button id="loadDefault">Load Default</button>
         <button id="loadData">Load 100000 Data</button>
     
-    <div id="exampleContainer" style="width:80%">
+    <div id="tableContainer" style="width:80%">
         <p>Table manipulation</p>
         <table class="table table-hover" id="example" >
         </table>
@@ -44,7 +44,7 @@
 		};
 		records.push(data);
 	}
-	records = [{
+	var records = [{
     "productId": "65432.9774.58785.22824",
     "productName": "HP-0000036",
     "product": "",
@@ -336,15 +336,107 @@
 }];
 
 	$('#example').table2({
-		thead: ["Product Name", "Description", "Last Completed Gate", "Next Gate","Start Date"],
-		tbody: records,
-		allowedKeys: ["productName", "productMarketingName", "lastCompletedGate.taskName", "nextGate.taskName", "nextGate.estStartDate"],
-		searchable: [true, false, false, false],
+		thead: ["Selected Product Details", "Selected Product Description", "Last Gate Completed Gate Name", "Last Completed Gate Description","Next Scheduled Gate Name","Next gate scheduled description","Next gate scheduled date"],
+        tbody: records,
+        allowedKeys: ["productName", "product", "lastCompletedGate.taskName","lastCompletedGate.taskDesc", "nextGate.taskName", "nextGate.taskDesc","nextGate.estStartDate"],
+        searchable: [true, false, false, false],
+        sortable: [true, false, false, false],
+        alignments: ["center", "left", "center", "left", "center", "left", "left"],
 		pagination : true,
 		actionButtons : false,
 		perPage : 10,
 		globalSearch : false
-	});
+    });
+    /*$('#gatesTable').table2({
+            thead: ["Selected Product Details", "Selected Product Description", "Last Gate Completed Gate Name", "Last Completed Gate Description","Next Scheduled Gate Name","Next gate scheduled description","Next gate scheduled date"],
+            tbody: filteredGates,
+            allowedKeys: ["productName", "product", "lastCompletedGate.taskName","lastCompletedGate.taskDesc", "nextGate.taskName", "nextGate.taskDesc","nextGate.estStartDate"],
+            searchable: [false, false, false, false],
+            pagination : false,
+            actionButtons : false,
+            perPage : 10,
+            globalSearch : false
+        });*/
+    
+    var secondData = [{
+        "productId": "65432.9774.58785.22824",
+        "productName": "New Product",
+        "product": "",
+        "productMarketingName": "TOTO HEADBOX",
+        "portfolioDesc": "TOTO PORTFOLIO",
+        "productLineDesc": "",
+        "lastCompletedGate": {
+            "taskName": "G1",
+            "taskDesc": "",
+            "onTime": true
+        },
+        "nextGate": {
+            "taskName": "G2",
+            "taskDesc": "",
+            "estStartDate": "3/19/2019 8:00:00 AM"
+        }
+    },{
+        "productId": "65432.9774.58785.22824",
+        "productName": "New Product 2",
+        "product": "",
+        "productMarketingName": "TOTO HEADBOX",
+        "portfolioDesc": "TOTO PORTFOLIO",
+        "productLineDesc": "",
+        "lastCompletedGate": {
+            "taskName": "G1",
+            "taskDesc": "",
+            "onTime": true
+        },
+        "nextGate": {
+            "taskName": "G2",
+            "taskDesc": "",
+            "estStartDate": "3/19/2019 8:00:00 AM"
+        }
+    },{
+        "productId": "65432.9774.58785.22824",
+        "productName": "New Product 3",
+        "product": "",
+        "productMarketingName": "TOTO HEADBOX",
+        "portfolioDesc": "TOTO PORTFOLIO",
+        "productLineDesc": "",
+        "lastCompletedGate": {
+            "taskName": "G1",
+            "taskDesc": "",
+            "onTime": true
+        },
+        "nextGate": {
+            "taskName": "G2",
+            "taskDesc": "",
+            "estStartDate": "3/19/2019 8:00:00 AM"
+        }
+    }];
+    $("#loadData").click(function(){
+        var existing = $('#example');
+        var parent = existing.parent;
+        
+        console.log(existing);
+        var classes = existing[0].className;
+        existing.remove();
+
+        var table = document.createElement('table');
+        table.id = "example";
+        table.className = classes;
+        $('#tableContainer').append(table);
+
+        $('#example').table2({
+            thead: ["Product Name", "Description", "Last Completed Gate", "Next Gate","Start Date"],
+            tbody: secondData,
+            allowedKeys: ["productName", "productMarketingName", "lastCompletedGate.taskName", "nextGate.taskName", "nextGate.estStartDate"],
+            searchable: [true, false, false, false],
+            sortable: [true, false, false, false],
+            alignments: ["left", "left", "left", "left"],
+            pagination : true,
+            actionButtons : false,
+            perPage : 10,
+            globalSearch : false
+        });
+    });
+	
     </script>
 
 </body>
