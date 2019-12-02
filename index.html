@@ -44,7 +44,7 @@
 		};
 		records.push(data);
 	}
-	var records = [{
+	var filteredGates = [{
     "productId": "65432.9774.58785.22824",
     "productName": "HP-0000036",
     "product": "",
@@ -335,13 +335,25 @@
     }
 }];
 
+// https://3dpassport-18xdev2.plm.valmet.com:8280/3dpassport/login?service=https%3A%2F%2F3dspace-18xdev2.plm.valmet.com%3A8180%2F3dspace%2Fcommon%2FemxNavigator.jsp%3FobjectId%3D" + productGateInformation.productId  
+    var gatesDataUpdated = [];
+
+    for (var i=0;i<filteredGates.length;i++) {
+        var prepared = "<a target='_BLANK' href='https://3dpassport-18xdev2.plm.valmet.com:8280/3dpassport/login?service=https%3A%2F%2F3dspace-18xdev2.plm.valmet.com%3A8180%2F3dspace%2Fcommon%2FemxNavigator.jsp%3FobjectId%3D"+filteredGates[i].productId+"'>"+filteredGates[i].productName+"</a>";
+        var record = filteredGates[i];
+        record.productName = prepared;
+        if (record.nextGate.estStartDate !== undefined) {
+            record.nextGate.estStartDate = record.nextGate.estStartDate.split(" ")[0];
+        }
+        gatesDataUpdated.push(record);
+    }
 	$('#example').table2({
 		thead: ["Selected Product Details", "Selected Product Description", "Last Gate Completed Gate Name", "Last Completed Gate Description","Next Scheduled Gate Name","Next gate scheduled description","Next gate scheduled date"],
-        tbody: records,
+        tbody: gatesDataUpdated,
         allowedKeys: ["productName", "product", "lastCompletedGate.taskName","lastCompletedGate.taskDesc", "nextGate.taskName", "nextGate.taskDesc","nextGate.estStartDate"],
-        searchable: [true, false, false, false],
-        sortable: [true, false, false, false],
-        alignments: ["center", "left", "center", "left", "center", "left", "left"],
+        searchable: [false, false, false, false, false, false, false],
+        sortable: [false, false, false, false, false, false, false],
+        alignments: ["center", "left", "center", "left", "center", "left", "center"],
 		pagination : true,
 		actionButtons : false,
 		perPage : 10,

@@ -91,25 +91,30 @@
 			}
 			table.appendChild(body);
 		}
-        var drawPaginatedTable = function (table,visiblePage,checkAlreadyVisible,perPage) {
+        var drawPaginatedTable = function (table,pageNo) {
+			var currentPage = 0;
 			var trs = table.getElementsByTagName("tr");
-			var startIndex = plugin.settings.searchable.indexOf(true)>-1 ? 1 : 2;
-
+			var startIndex = plugin.settings.searchable.indexOf(true)>-1 ? 2 : 1;
 			for (var i = startIndex; i < trs.length; i++) {
-				var currentPage = i / perPage;
-				//console.log(currentPage >= visiblePage && currentPage <= (visiblePage+1));
-				var visibilityCondition = false
-				if (checkAlreadyVisible) {
-					visibilityCondition = currentPage > visiblePage && currentPage < (visiblePage+1) && trs[i].style=="";
+				var tr = trs[i];
+				currentPage = i/plugin.settings.perPage;
+				currentPage = Math.ceil(currentPage);
+				tr.className = "test";
+
+				if (pageNo>=currentPage && (pageNo<currentPage+1)) {
+					tr.style = "";	
 				} else {
-					visibilityCondition = currentPage > visiblePage && currentPage < (visiblePage+1);
+					tr.style = "display:none;";	
 				}
-				if (visibilityCondition) {
-					trs[i].style = "";	
-				} else {
-					trs[i].style = "display:none;";	
-				}
+				
 			}
+			$('.test').click(function(){
+				var tds = this.getElementsByTagName('td');
+				for(var i=0;i<tds.length;i++) {
+					
+				}
+			});
+			drawPaginationLinks(table,pageNo);
 		}
 
 		var drawPaginationLinks = function (table,activePage){
@@ -132,26 +137,11 @@
 			$("#"+table.id+"").parent().append(preparedList);
 			$('#'+table.id+'-pagination a').click(function(){
 				var pageNo = this.innerText;
-				loadPage(pageNo);
+				drawPaginatedTable(table,pageNo);
 			});
-			function loadPage(pageNo) {
-				var currentPage = 0;
-				var trs = table.getElementsByTagName("tr");
-				var startIndex = plugin.settings.searchable.indexOf(true)>-1 ? 1 : 2;
-				for (var i = startIndex; i < trs.length; i++) {
-					currentPage = i/plugin.settings.perPage;
-					currentPage = Math.ceil(currentPage);
-
-					if (pageNo>=currentPage && (pageNo<currentPage+1)) {
-						trs[i].style = "";	
-					} else {
-						trs[i].style = "display:none;";	
-					}
-					
-				}
-				drawPaginationLinks(table,pageNo);	
-			}
+			
 		}
+
 		var bindSearchableEvents = function (table,thead,searchable){
 			for (var j = 0; j < thead.length; j++) {
 				if (searchable[j]) {
@@ -182,8 +172,8 @@
 							$('#'+table.id+'-pagination').hide();
 						} else {
 							if (plugin.settings.pagination) {
-								drawPaginatedTable(table,0,false,plugin.settings.perPage);
-								drawPaginationLinks(table,1);
+								drawPaginatedTable(table,1);
+								//drawPaginationLinks(table,1);
 								$('#'+table.id+'-pagination').show();
 							}
 							
@@ -229,8 +219,9 @@
                 
                 if (pagination) {
                     
-                    drawPaginatedTable(table,0,false,perPage);
-                    drawPaginationLinks(table,1);
+                    //drawPaginatedTable(table,0,false,perPage);
+					//drawPaginationLinks(table,1);
+					drawPaginatedTable(table,1);
                 }
             } else {
                 alert('Error: Unable to draw!');

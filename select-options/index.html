@@ -13,8 +13,10 @@
 
 <body>
 
-<div id="bookmarkFolderSelection">
-</div>
+    <div id="selectContainer">
+        <div id="bookmarkFolderSelection">
+        </div>        
+    </div>
 
 <script src="resources/js/jquery.js"></script>
 <script src="resources/js/faker.js"></script>
@@ -22,6 +24,37 @@
 
 <script>
 var bookmarkFolders = ["Service","Build","Delivery","Engineering","Sales","Test Plan","Basics","DAL","Incoming Correspondence","Outgoing Correspondence","Connectors","Valkiakoski","Engineering Report","Fld-Test-01","Certifications","Ulvila","Proposal Volumes","RFP Documents","Contract Documentation","Correspondence","Proposal Estimates"];
+
+var bookmarksGlobal = [{"bookmarkFolderName":"Basics"}];
+
+function getBookmarkFolderNames(bookmarks) {
+	return new Promise(function (resolve, reject) {
+		try {
+			var filtered = [];
+			for (var i=0;i<bookmarks.length;i++) {
+				
+				var bookmarkFolderName = bookmarks[i].bookmarkFolderName;
+				if (filtered.indexOf(bookmarkFolderName)==-1) {
+					filtered.push(bookmarkFolderName);
+				}
+			}
+			resolve(filtered);
+		} catch(e){
+			reject(e);
+			console.log("Error occured!");
+		}
+	});
+}
+
+getBookmarkFolderNames(bookmarksGlobal).then(function(data){
+    console.log(JSON.stringify(data));
+});
+
+
+    $('#bookmarkFolderSelection').remove();
+    var div = document.createElement('div');
+    div.id = "bookmarkFolderSelection";
+    $('#selectContainer').append(div);
 
     $('#bookmarkFolderSelection').selectjs({
         title: "Bookmark Folder",
@@ -31,7 +64,18 @@ var bookmarkFolders = ["Service","Build","Delivery","Engineering","Sales","Test 
         valueGeneration: false,
         data: bookmarkFolders,
         onchangeEvent: function(){
-            console.log(this.value);
+            var selected = this.value;
+            var foldersContainer = document.getElementById('bookmarkFolderSelection');
+            var select = foldersContainer.getElementsByTagName('select')[0];
+            
+            for (var i=0;i<select.options.length ;i++ ) {
+                if (select.options[i].value != selected) {
+                    select.remove(i);
+                    i--;
+                } else {
+
+                }
+            }
         }
     });
 
